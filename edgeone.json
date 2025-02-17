@@ -1,0 +1,72 @@
+{
+  "rules": [
+    {
+      "id": "root_route",
+      "description": "Root path to welcome page",
+      "phase": "request",
+      "criteria": [
+        {
+          "type": "path",
+          "operator": "equal",
+          "value": "/"
+        }
+      ],
+      "behaviors": [
+        {
+          "type": "modifyUrlPath",
+          "action": "replace",
+          "value": "/dist/welcome.html"
+        },
+        {
+          "type": "setResponseHeader",
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "type": "setResponseHeader",
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+        },
+        {
+          "type": "setResponseHeader",
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Content-Type, Authorization"
+        }
+      ]
+    },
+    {
+      "id": "catch_all_route",
+      "description": "Catch-all route with CORS headers",
+      "phase": "request",
+      "criteria": [
+        {
+          "type": "path",
+          "operator": "matches",
+          "value": "/(.*)"
+        }
+      ],
+      "behaviors": [
+        {
+          "type": "modifyUrlPath",
+          "action": "replace",
+          "value": "/dist/$1"
+        },
+        {
+          "type": "setResponseHeader",
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "type": "setResponseHeader",
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+        },
+        {
+          "type": "setResponseHeader",
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Content-Type, Authorization"
+        }
+      ]
+    }
+  ]
+}
